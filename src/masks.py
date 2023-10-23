@@ -12,11 +12,11 @@ def mask_credit_card(card_number: str) -> str:
         return card_number
 
     masked_number = (
-        card_number[:4]
-        + " "
-        + card_number[4:6]
-        + "** **** "
-        + card_number[-4:]
+            card_number[:4]
+            + " "
+            + card_number[4:6]
+            + "** **** "
+            + card_number[-4:]
     )
     return masked_number
 
@@ -38,11 +38,11 @@ def mask_bank_account(account_number: str) -> str:
     return masked_number
 
 
-# Примеры использования
-credit_card = "7000792289606361"
-masked_credit_card = mask_credit_card(credit_card)
-print(masked_credit_card)  # Выведет '7000 79** **** 6361'
-
-bank_account = "73654108430135874305"
-masked_account = mask_bank_account(bank_account)
-print(masked_account)  # Выведет '**4305'
+# # Примеры использования
+# credit_card = "7000792289606361"
+# masked_credit_card = mask_credit_card(credit_card)
+# print(masked_credit_card)  # Выведет '7000 79** **** 6361'
+#
+# bank_account = "73654108430135874305"
+# masked_account = mask_bank_account(bank_account)
+# print(masked_account)  # Выведет '**4305'
