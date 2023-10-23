@@ -29,3 +29,25 @@ print(masked1)
 input_str2 = "Счет 64686473678894779589"
 masked2 = mask_card_info(input_str2)
 print(masked2)
+
+
+def format_date(data: str) -> str:
+    """
+    Преобразует строку даты в формате "гггг-мм-ддTчч:мм:сс.мксек" в формат "дд.мм.гггг".
+
+    :param data: Строка, содержащая дату в формате "гггг-мм-ддTчч:мм:сс.мксек".
+    :return: Строка с датой в формате "дд.мм.гггг" или "Неверный формат даты" при ошибке.
+    """
+    parts = data.split('T')
+    if len(parts) > 0:
+        date_parts = parts[0].split('-')
+        if len(date_parts) == 3:
+            formatted_date = f"{date_parts[2]}.{date_parts[1]}.{date_parts[0]}"
+            return formatted_date
+    return "Неверный формат даты"
+
+
+# Пример использования
+data_str = "2018-07-11T02:26:18.671407"
+formatted_date_str = format_date(data_str)
+print(formatted_date_str)
