@@ -1,7 +1,7 @@
 from typing import List, Dict, Any
 
 
-def get_state_of_operation(data: List[Dict[str, Any]], state: str) -> List[Dict[str, Any]]:
+def get_state_of_operation(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
     """
     Функция фильтрует список словарей и возвращает список словарей с указанным значением ключа 'state'.
 

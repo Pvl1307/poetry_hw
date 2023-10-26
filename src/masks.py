@@ -11,13 +11,7 @@ def mask_credit_card(card_number: str) -> str:
     if len(card_number) < 6:
         return card_number
 
-    masked_number = (
-            card_number[:4]
-            + " "
-            + card_number[4:6]
-            + "** **** "
-            + card_number[-4:]
-    )
+    masked_number = (card_number[:4] + " " + card_number[4:6] + "** **** " + card_number[-4:])
     return masked_number
 
 
