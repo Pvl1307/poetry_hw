@@ -39,7 +39,7 @@ def format_date(data: str) -> str:
     :return: Строка с датой в формате "дд.мм.гггг" или "Неверный формат даты" при ошибке.
     """
     parts = data.split('T')
-    if len(parts) > 0:
+    if len(parts) > 1:
         date_parts = parts[0].split('-')
         if len(date_parts) == 3:
             formatted_date = f"{date_parts[2]}.{date_parts[1]}.{date_parts[0]}"
