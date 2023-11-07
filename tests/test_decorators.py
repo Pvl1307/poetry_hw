@@ -1,4 +1,8 @@
+import os
+
 from src.decorators import log
+
+log_directory = '../'
 
 
 @log(filename='mylog.txt')
@@ -10,7 +14,9 @@ def test_log_decorator_ok() -> None:
     """Тест на проверку декоратора с успехом"""
     result = my_func(1, 2)
 
-    with open('mylog.txt', 'r', encoding='utf-8') as f:
+    log_path = os.path.join(log_directory, 'mylog.txt')
+
+    with open(log_path, 'r', encoding='utf-8') as f:
         logs = f.read()
 
     assert result == 3
@@ -21,7 +27,9 @@ def test_log_decorator_error() -> None:
     """Тест на проверку декоратора с ошибкой"""
     result = my_func(1, '2')
 
-    with open('mylog.txt', 'r', encoding='utf-8') as f:
+    log_path = os.path.join(log_directory, 'mylog.txt')
+
+    with open(log_path, 'r', encoding='utf-8') as f:
         logs = f.read()
 
     assert result is None
