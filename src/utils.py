@@ -1,7 +1,8 @@
 import json
+from typing import Union
 
 
-def read_json(json_file: json) -> list:
+def read_json(json_file: Union[str, bytes]) -> list:
     """Чтение JSON файла и вывод транзакций. При отсутсвии файла или данных в нем вывод пустого списка"""
     try:
         with open(json_file, 'r', encoding='utf-8') as file:
