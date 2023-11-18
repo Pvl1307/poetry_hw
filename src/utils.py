@@ -19,13 +19,13 @@ def read_json(json_file: Union[str, bytes]) -> list:
         with open(json_file, 'r', encoding='utf-8') as file:
             data = json.load(file)
             if isinstance(data, list):
-                logger.info(f"Успешно прочитан JSON файл: {json_file}")
+                logger.info(f"Успешно прочитан JSON файл: {repr(json_file)}")
                 return data
             else:
-                logger.warning(f"JSON файл {json_file} не содержит списка транзакций")
+                logger.warning(f"JSON файл {repr(json_file)} не содержит списка транзакций")
                 return []
     except (FileNotFoundError, json.JSONDecodeError):
-        logger.warning(f"Файл {json_file} не найден")
+        logger.warning(f"Файл {repr(json_file)} не найден")
         return []
 
 
