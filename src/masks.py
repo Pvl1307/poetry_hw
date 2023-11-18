@@ -2,7 +2,7 @@ import logging
 
 from src.config import LOG_LEVEL, LOG_FILE_PATH
 
-logger = logging.getLogger('my_logger')
+logger = logging.getLogger('masks')
 logger.setLevel(LOG_LEVEL)
 
 file_handler = logging.FileHandler(LOG_FILE_PATH, mode='a')
