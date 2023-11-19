@@ -5,7 +5,7 @@ from src.config import LOG_LEVEL, LOG_FILE_PATH
 logger = logging.getLogger('masks')
 logger.setLevel(LOG_LEVEL)
 
-file_handler = logging.FileHandler(LOG_FILE_PATH, mode='a')
+file_handler = logging.FileHandler(LOG_FILE_PATH, mode='w')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)

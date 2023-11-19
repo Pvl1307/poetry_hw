@@ -7,7 +7,7 @@ from src.config import LOG_LEVEL, LOG_FILE_PATH
 logger = logging.getLogger('utils')
 logger.setLevel(LOG_LEVEL)
 
-file_handler = logging.FileHandler(LOG_FILE_PATH, mode='a')
+file_handler = logging.FileHandler(LOG_FILE_PATH, mode='w')
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
@@ -22,10 +22,10 @@ def read_json(json_file: Union[str, bytes]) -> list:
                 logger.info(f"Успешно прочитан JSON файл: {repr(json_file)}")
                 return data
             else:
-                logger.warning(f"JSON файл {repr(json_file)} не содержит списка транзакций")
+                logger.error(f"JSON файл {repr(json_file)} не содержит списка транзакций")
                 return []
     except (FileNotFoundError, json.JSONDecodeError):
-        logger.warning(f"Файл {repr(json_file)} не найден")
+        logger.error(f"Файл {repr(json_file)} не найден")
         return []
 
 
