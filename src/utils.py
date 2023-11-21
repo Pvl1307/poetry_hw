@@ -1,9 +1,6 @@
 import json
 import logging
-import os
 from typing import Union
-
-import pandas as pd
 
 from src.config import LOG_LEVEL, LOG_FILE_PATH
 
@@ -42,7 +39,6 @@ def get_transaction_amount(transaction: dict) -> float:
         logger.error("Транзакция выполнена не в рублях.")
         raise ValueError('Транзакция выполнена не в рублях. Укажите транзакцию в рублях')
 
-
 # # Проверка логирования
 # print(read_json('../data/transactions.json'))
 #
@@ -59,22 +55,3 @@ def get_transaction_amount(transaction: dict) -> float:
 #     "to": "Счет 64686473678894779589"
 # }
 # print(get_transaction_amount(transactions))
-
-def read_csv(filename: str) -> None:
-    """Чтение CSV файла и вывод транзакций"""
-    csv_file_path = os.path.join(os.path.dirname(__file__), '..', 'data', filename)
-
-    reader = pd.read_csv(csv_file_path, delimiter=';')
-    print(reader)
-
-
-def read_xlsx(filename: str) -> None:
-    """Чтение XLSX файла и вывод транзакций"""
-    xlsx_file_path = os.path.join(os.path.dirname(__file__), '..', 'data', filename)
-
-    reader = pd.read_excel(xlsx_file_path)
-    print(reader)
-
-
-read_csv('transactions.csv')
-read_xlsx('transactions_excel.xlsx')
