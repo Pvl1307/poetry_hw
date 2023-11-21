@@ -1,8 +1,12 @@
+import os
+from unittest.mock import patch
+
 import pytest
 
-from src.utils import read_json, get_transaction_amount
+from src.utils import read_json, get_transaction_amount, read_csv, read_xlsx
 
 TEST_JSON_FILE = '../data/test.json'
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 valid_json_data = [
     {
@@ -57,3 +61,25 @@ def test_get_transaction_amount(transaction, expected):
     else:
         with pytest.raises(Exception):  # Замените Exception на ожидаемое исключение
             get_transaction_amount(transaction)
+
+
+@patch('builtins.print')
+@patch('pandas.read_csv')
+def test_read_csv(mock_read_csv, mock_print):
+    """Тест read_csv"""
+    mock_read_csv.return_value = 'CSV data'
+    read_csv(os.path.join(BASE_DIR, 'data', 'transactions.csv'))
+
+    mock_read_csv.assert_called_once_with(os.path.join(BASE_DIR, 'data', 'transactions.csv'), delimiter=';')
+    mock_print.assert_called_once_with('CSV data')
+
+
+@patch('builtins.print')
+@patch('pandas.read_excel')
+def test_read_xlsx(mock_read_excel, mock_print):
+    """Тест read_xlsx"""
+    mock_read_excel.return_value = 'XLSX data'
+    read_xlsx(os.path.join(BASE_DIR, 'data', 'transactions.xlsx'))
+
+    mock_read_excel.assert_called_once_with(os.path.join(BASE_DIR, 'data', 'transactions.xlsx'))
+    mock_print.assert_called_once_with('XLSX data')
