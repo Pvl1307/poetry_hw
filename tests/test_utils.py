@@ -1,9 +1,6 @@
-import os
-from unittest.mock import patch
-
 import pytest
 
-from src.utils import read_json, get_transaction_amount, read_csv, read_xlsx
+from src.utils import read_json, get_transaction_amount
 
 TEST_JSON_FILE = '../data/test.json'
 
@@ -49,8 +46,8 @@ def test_read_json(test_input, expected):
 
 @pytest.mark.parametrize("transaction, expected", [
     (valid_json_data[0], 31957.58),
-    (valid_json_data[1], None),  # Поменяйте None на ожидаемое исключение, если валюта неверная
-    ({'operationAmount': {'amount': 50.0}}, None)  # Поменяйте None на ожидаемое исключение, если отсутствует валюта
+    (valid_json_data[1], None),
+    ({'operationAmount': {'amount': 50.0}}, None)
 ])
 def test_get_transaction_amount(transaction, expected):
     """Тест get_transaction_amount"""
@@ -58,5 +55,5 @@ def test_get_transaction_amount(transaction, expected):
         result = get_transaction_amount(transaction)
         assert result == expected
     else:
-        with pytest.raises(Exception):  # Замените Exception на ожидаемое исключение
+        with pytest.raises(Exception):
             get_transaction_amount(transaction)

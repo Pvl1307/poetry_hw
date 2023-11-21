@@ -18,6 +18,3 @@ def read_xlsx(filename: str) -> Union[pd.DataFrame, None]:
 
     reader = pd.read_excel(xlsx_file_path)
     return reader
-
-# print(read_csv('transactions.csv'))
-# print(read_xlsx('transactions_excel.xlsx'))
