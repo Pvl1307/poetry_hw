@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional, Pattern
 
 
 def get_state_of_operation(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
@@ -26,26 +26,28 @@ def sort_dict_list_by_date(data: List[Dict[str, Any]], reverse: bool = False) ->
     return data
 
 
-def search_transaction(transactions: list[dict[Any, Any]], search: str) -> list[dict[Any, Any]]:
+def search_transaction(transactions: List[Dict[Any, Any]], search: Optional[str]) -> List[Dict[Any, Any]]:
     """Поиск операций по определенной строке и вывод этих операций"""
     result = []
-    pattern = re.compile(search, re.IGNORECASE)
+    if search is not None:
+        pattern: Pattern[str] = re.compile(search, re.IGNORECASE)
 
-    for transaction in transactions:
-        if re.search(pattern, transaction.get('description')):
-            result.append(transaction)
+        for transaction in transactions:
+            if re.search(pattern, transaction.get('description', '')):
+                result.append(transaction)
 
     return result
 
 
-def categorize_transactions(transactions: list[dict[Any, Any]], category: dict) -> dict[str, int]:
+def categorize_transactions(transactions: List[Dict[Any, Any]], category: Dict[str, List[str]]) -> Dict[str, int]:
     """Категоризация операций по заданным категориям."""
-    categories_count = Counter()
+    categories_count: Dict[str, int] = Counter()
 
     for transaction in transactions:
         description = transaction.get('description')
-        for key, values in category.items():
-            if key.lower() in description.lower():
-                categories_count[key] += 1
+        if description is not None:
+            for key, values in category.items():
+                if key.lower() in description.lower():
+                    categories_count[key] += 1
 
     return categories_count
