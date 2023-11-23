@@ -1,4 +1,6 @@
-from typing import List, Dict, Any
+import re
+from collections import Counter
+from typing import List, Dict, Any, Optional, Pattern
 
 
 def get_state_of_operation(data: List[Dict[str, Any]], state: str = 'EXECUTED') -> List[Dict[str, Any]]:
@@ -24,17 +26,28 @@ def sort_dict_list_by_date(data: List[Dict[str, Any]], reverse: bool = False) ->
     return data
 
 
-data = [
-    {'id': 41428829, 'state': 'EXECUTED', 'date': '2019-07-03T18:35:29.512364'},
-    {'id': 939719570, 'state': 'EXECUTED', 'date': '2018-06-30T02:08:58.425572'},
-    {'id': 594226727, 'state': 'CANCELED', 'date': '2018-09-12T21:27:25.241689'},
-    {'id': 615064591, 'state': 'CANCELED', 'date': '2018-10-14T08:21:33.419441'}
-]
+def search_transaction(transactions: List[Dict[Any, Any]], search: Optional[str]) -> List[Dict[Any, Any]]:
+    """Поиск операций по определенной строке и вывод этих операций"""
+    result = []
+    if search is not None:
+        pattern: Pattern[str] = re.compile(search, re.IGNORECASE)
 
-state = 'CANCELED'
+        for transaction in transactions:
+            if re.search(pattern, transaction.get('description', '')):
+                result.append(transaction)
 
-# Вывод операций с определенным статусом
-print(get_state_of_operation(data, state))
+    return result
 
-# Сортировка по дате в убывающем порядке
-print(sort_dict_list_by_date(data, reverse=True))
+
+def categorize_transactions(transactions: List[Dict[Any, Any]], category: Dict[str, List[str]]) -> Dict[str, int]:
+    """Категоризация операций по заданным категориям."""
+    categories_count: Dict[str, int] = Counter()
+
+    for transaction in transactions:
+        description = transaction.get('description')
+        if description is not None:
+            for key, values in category.items():
+                if key.lower() in description.lower():
+                    categories_count[key] += 1
+
+    return categories_count
