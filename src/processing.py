@@ -1,4 +1,5 @@
 import re
+from collections import Counter
 from typing import List, Dict, Any
 
 
@@ -35,3 +36,16 @@ def search_transaction(transactions: list[dict[Any, Any]], search: str) -> list[
             result.append(transaction)
 
     return result
+
+
+def categorize_transactions(transactions: list[dict[Any, Any]], category: dict) -> dict[str, int]:
+    """Категоризация операций по заданным категориям."""
+    categories_count = Counter()
+
+    for transaction in transactions:
+        description = transaction.get('description')
+        for key, values in category.items():
+            if key.lower() in description.lower():
+                categories_count[key] += 1
+
+    return categories_count
