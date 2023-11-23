@@ -1,6 +1,6 @@
 import json
-from typing import Union
 import logging
+from typing import Union
 
 from src.config import LOG_LEVEL, LOG_FILE_PATH
 
@@ -38,20 +38,3 @@ def get_transaction_amount(transaction: dict) -> float:
     else:
         logger.error("Транзакция выполнена не в рублях.")
         raise ValueError('Транзакция выполнена не в рублях. Укажите транзакцию в рублях')
-
-# # Проверка логирования
-# print(read_json('../data/transactions.json'))
-#
-# transactions = {
-#     "id": 441945886,
-#     "state": "EXECUTED",
-#     "date": "2019-08-26T10:50:58.294041",
-#     "operationAmount": {
-#         "amount": "31957.58",
-#         "currency": {"name": "руб.", "code": "RUB"}
-#     },
-#     "description": "Перевод организации",
-#     "from": "Maestro 1596837868705199",
-#     "to": "Счет 64686473678894779589"
-# }
-# print(get_transaction_amount(transactions))
